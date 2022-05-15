@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using task_app.ApiDomain.Surveys;
 using task_app.Core.Service.Interfaces;
-using task_app.Domain.Surveys;
 
 namespace task_app.Controllers;
 
