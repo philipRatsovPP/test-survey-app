@@ -8,7 +8,7 @@ console.log(env.ASPNETCORE_HTTPS_PORT);
 console.log(env.ASPNETCORE_URLS);
 
 const context = [
-  "/weatherforecast",
+  "/survey",
 ];
 
 module.exports = function (app) {
