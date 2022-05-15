@@ -1,8 +1,13 @@
+using task_app.Core.Service.Interfaces;
+using task_app.Core.Service.Surveys.Queries;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ISurveyQueries, SurveyQueries>();
 
 var app = builder.Build();
 
@@ -22,6 +27,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html");;
+app.MapFallbackToFile("index.html");
 
 app.Run();
