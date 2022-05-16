@@ -41,7 +41,7 @@ export class Surveys extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Survey Monkey</h1>
+        <h2 id="tabelLabel" >All surveys</h2>
         {contents}
       </div>
     );
