@@ -40,4 +40,18 @@ namespace task_app.Domain.Surveys
         public int? MaxValue { get; set; }
 
     }
+
+    public class SurveyResponse
+    {
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public string Email { get; set; }
+
+        public int? Age { get; set; }
+    }
 }

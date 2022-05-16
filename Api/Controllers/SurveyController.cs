@@ -2,6 +2,7 @@
 
 using task_app.ApiDomain.Surveys;
 using task_app.Core.Service.Interfaces;
+using task_app.Domain.Surveys;
 
 namespace task_app.Controllers;
 
@@ -15,14 +16,18 @@ public class SurveyController : ControllerBase
 
     private readonly ISurveyQueries _surveyQueries;
 
+    private readonly ISurveyCommands _surveyCommands;
+
     #endregion
 
     public SurveyController(
         ILogger<SurveyController> logger,
-        ISurveyQueries            surveyQueries)
+        ISurveyQueries surveyQueries,
+        ISurveyCommands surveyCommands)
     {
         _logger = logger;
         _surveyQueries = surveyQueries;
+        _surveyCommands = surveyCommands;
     }
 
     /// <summary>
@@ -39,9 +44,9 @@ public class SurveyController : ControllerBase
         var surveys = await _surveyQueries.ListSurveysAsync();
 
         var response = new ListSurveysResponse
-            {
-                Surveys = surveys,
-            };
+        {
+            Surveys = surveys,
+        };
 
         return Ok(response);
     }
@@ -63,9 +68,38 @@ public class SurveyController : ControllerBase
         var survey = await _surveyQueries.GetSurvey(id);
 
         var response = new GetSurveyResponse
-            {
-                Survey = survey,
-            };
+        {
+            Survey = survey,
+        };
+
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// Save a survey response.
+    /// </summary>
+    [HttpPost]
+    [Route("response/{id}")]
+    public async Task<ActionResult<SaveSurveyResponse>> SaveSurvey(
+        [FromRoute] int id,
+        [FromBody] SaveSurveyInput input)
+    {
+        _logger.LogDebug(
+            "executing {Operation} ({SurveyId})",
+            nameof(SaveSurvey),
+            id);
+
+        var serveyResponse = new SurveyResponse
+        {
+            FirstName = input.FirstName,
+            LastName = input.LastName,
+            Email = input.Email,
+            Age = input.Age,
+        };
+
+        await _surveyCommands.SaveSurveyResponse(serveyResponse);
+
+        var response = new SaveSurveyResponse();
 
         return Ok(response);
     }
