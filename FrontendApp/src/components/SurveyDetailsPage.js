@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react/cjs/react.production.min';
 
 export function SurveyDetailsPage() {
 
     const params = useParams();
-    const { survey, setSurvey } = useState();
+    const [survey, setSurvey] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
-            const id = params.id;
-            const response = await fetch(`survey/surveys/${id}`);
+            const response = await fetch(`survey/surveys/12`);
             const data = await response.json();
             setSurvey(data.survey);
         }
