@@ -6,19 +6,16 @@ import { SurveyDetailsPage } from './components/SurveyDetailsPage';
 
 import './custom.css'
 
-export default class App extends Component {
-  static displayName = App.name;
+export function App() {
+  return (
+    <Layout>
+      <Route exact path='/' component={Surveys} />
+      <Route exact path='/surveys' component={Surveys} />
+      {/* <Route path='/surveys/:id' component={SurveyDetailsPage} /> */}
+      <Route path='/surveys/:id'>
+        <SurveyDetailsPage />
+      </Route>
+    </Layout>
+  );
 
-  render() {
-    return (
-      <Layout>
-        <Route exact path='/' component={Surveys} />
-        <Route path='/surveys' component={Surveys} />
-        <Route path='/surveys/:id' component={SurveyDetailsPage} />
-        {/* <Route path='/surveys/id'>
-          <SurveyDetailsPage />
-        </Route> */}
-      </Layout>
-    );
-  }
 }
