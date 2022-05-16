@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using task_app.ApiDomain.Surveys;
 using task_app.Core.Service.Interfaces;
 
@@ -18,13 +19,11 @@ public class SurveyController : ControllerBase
 
     public SurveyController(
         ILogger<SurveyController> logger,
-        ISurveyQueries surveyQueries)
+        ISurveyQueries            surveyQueries)
     {
-
         _logger = logger;
         _surveyQueries = surveyQueries;
     }
-
 
     /// <summary>
     /// List all existing surveys.
@@ -40,9 +39,9 @@ public class SurveyController : ControllerBase
         var surveys = await _surveyQueries.ListSurveysAsync();
 
         var response = new ListSurveysResponse
-        {
-            Surveys = surveys,
-        };
+            {
+                Surveys = surveys,
+            };
 
         return Ok(response);
     }
@@ -61,14 +60,13 @@ public class SurveyController : ControllerBase
             nameof(GetSurvey),
             id);
 
-        var servey = await _surveyQueries.GetSurvey(id);
+        var survey = await _surveyQueries.GetSurvey(id);
 
         var response = new GetSurveyResponse
-        {
-            Survey = servey,
-        };
+            {
+                Survey = survey,
+            };
 
         return Ok(response);
     }
 }
-

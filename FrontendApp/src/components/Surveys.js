@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export class Surveys extends Component {
   static displayName = Surveys.name;
@@ -25,7 +27,7 @@ export class Surveys extends Component {
             <tr key={survey.name}>
               <td>{survey.name}</td>
               <td>
-                <a href={`/surveys/${survey.id}`}>Details</a>
+                <NavLink tag={Link} className="text-dark" to={`/surveys/${survey.id}`}>Details</NavLink>
               </td>
             </tr>
           )}
