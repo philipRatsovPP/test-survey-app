@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Surveys } from './components/Surveys';
@@ -11,7 +11,6 @@ export function App() {
     <Layout>
       <Route exact path='/' component={Surveys} />
       <Route exact path='/surveys' component={Surveys} />
-      {/* <Route path='/surveys/:id' component={SurveyDetailsPage} /> */}
       <Route path='/surveys/:id'>
         <SurveyDetailsPage />
       </Route>
