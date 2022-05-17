@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home';
 import { Surveys } from './components/Surveys';
-import { Counter } from './components/Counter';
+import { SurveyDetailsPage } from './components/SurveyDetailsPage';
 
 import './custom.css'
 
-export default class App extends Component {
-  static displayName = App.name;
+export function App() {
+  return (
+    <Layout>
+      <Route exact path='/' component={Surveys} />
+      <Route exact path='/surveys' component={Surveys} />
+      <Route path='/surveys/:id'>
+        <SurveyDetailsPage />
+      </Route>
+    </Layout>
+  );
 
-  render() {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/surveys' component={Surveys} />
-      </Layout>
-    );
-  }
 }

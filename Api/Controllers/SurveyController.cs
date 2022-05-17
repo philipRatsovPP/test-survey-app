@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using task_app.ApiDomain.Surveys;
 using task_app.Core.Service.Interfaces;
 
 namespace task_app.Controllers;
 
 [ApiController]
+[Produces("application/json")]
 [Route("[controller]")]
 public class SurveyController : ControllerBase
 {
@@ -14,17 +16,19 @@ public class SurveyController : ControllerBase
 
     private readonly ISurveyQueries _surveyQueries;
 
+    private readonly ISurveyCommands _surveyCommands;
+
     #endregion
 
     public SurveyController(
         ILogger<SurveyController> logger,
-        ISurveyQueries surveyQueries)
+        ISurveyQueries surveyQueries,
+        ISurveyCommands surveyCommands)
     {
-
         _logger = logger;
         _surveyQueries = surveyQueries;
+        _surveyCommands = surveyCommands;
     }
-
 
     /// <summary>
     /// List all existing surveys.
@@ -61,14 +65,37 @@ public class SurveyController : ControllerBase
             nameof(GetSurvey),
             id);
 
-        var servey = await _surveyQueries.GetSurvey(id);
+        var survey = await _surveyQueries.GetSurvey(id);
 
         var response = new GetSurveyResponse
         {
-            Survey = servey,
+            Survey = survey,
         };
 
         return Ok(response);
     }
-}
 
+    /// <summary>
+    /// Save a survey response.
+    /// </summary>
+    [HttpPost]
+    [Route("response/{id}")]
+    public async Task<ActionResult<SaveSurveyResponse>> SaveSurvey(
+        [FromRoute] int id,
+        [FromBody] SaveSurveyInput input)
+    {
+        _logger.LogDebug(
+            "executing {Operation} ({SurveyId})",
+            nameof(SaveSurvey),
+            id);
+
+        await _surveyCommands.SaveSurveyResponse(input.FirstName,
+            input.LastName,
+            input.Email,
+            input.Age);
+
+        var response = new SaveSurveyResponse();
+
+        return Ok(response);
+    }
+}
