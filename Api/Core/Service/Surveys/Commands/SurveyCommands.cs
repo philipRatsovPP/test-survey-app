@@ -12,8 +12,20 @@ namespace task_app.Core.Service.Surveys.Queries
             _responses = new List<SurveyResponse>();
         }
 
-        public Task SaveSurveyResponse(SurveyResponse response)
+        public Task SaveSurveyResponse(
+            string firstName,
+            string lastName,
+            string email,
+            int? age)
         {
+            var response = new SurveyResponse
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+                Age = age
+            };
+
             _responses.Add(response);
             return Task.CompletedTask;
         }

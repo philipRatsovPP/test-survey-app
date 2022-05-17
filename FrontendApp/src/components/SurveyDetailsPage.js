@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 export function SurveyDetailsPage() {
+
+    const history = useHistory();
 
     const params = useParams();
     const id = params.id;
@@ -24,13 +26,18 @@ export function SurveyDetailsPage() {
 
     const handleSubmit = async (event) => {
         const form = event.currentTarget;
+        event.preventDefault();
+        event.stopPropagation();
+        
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+            return;
         }
 
         await fetch(`survey/response/${id}`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 firstName,
                 lastName,
@@ -38,6 +45,8 @@ export function SurveyDetailsPage() {
                 age,
             })
         });
+
+        history.push('/');
     };
 
     if (!survey) { return null; }

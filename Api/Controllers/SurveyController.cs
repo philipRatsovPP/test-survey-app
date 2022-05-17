@@ -2,11 +2,11 @@
 
 using task_app.ApiDomain.Surveys;
 using task_app.Core.Service.Interfaces;
-using task_app.Domain.Surveys;
 
 namespace task_app.Controllers;
 
 [ApiController]
+[Produces("application/json")]
 [Route("[controller]")]
 public class SurveyController : ControllerBase
 {
@@ -89,15 +89,10 @@ public class SurveyController : ControllerBase
             nameof(SaveSurvey),
             id);
 
-        var serveyResponse = new SurveyResponse
-        {
-            FirstName = input.FirstName,
-            LastName = input.LastName,
-            Email = input.Email,
-            Age = input.Age,
-        };
-
-        await _surveyCommands.SaveSurveyResponse(serveyResponse);
+        await _surveyCommands.SaveSurveyResponse(input.FirstName,
+            input.LastName,
+            input.Email,
+            input.Age);
 
         var response = new SaveSurveyResponse();
 

@@ -1,10 +1,12 @@
-﻿using task_app.Domain.Surveys;
-
+﻿
 namespace task_app.Core.Service.Interfaces
 {
     public interface ISurveyCommands
     {
-        Task SaveSurveyResponse(SurveyResponse response);
+        Task SaveSurveyResponse(string firstName,
+            string lastName,
+            string email,
+            int? age);
     }
 
 }
