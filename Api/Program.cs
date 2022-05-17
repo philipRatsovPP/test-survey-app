@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ISurveyQueries, SurveyQueries>();
+builder.Services.AddSingleton<ISurveyCommands, SurveyCommands>();
 
 var app = builder.Build();
 
